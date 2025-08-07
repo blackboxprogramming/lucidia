@@ -11,5 +11,11 @@ project philosophy and usage instructions.
 
 from .core import LucidiaAI
 
+
+
 __all__ = ["LucidiaAI"]
 __version__ = "0.1.0"
+
+from .truth_agent import TruthAgent
+
+__all__ = ["LucidiaAI", "TruthAgent"]
