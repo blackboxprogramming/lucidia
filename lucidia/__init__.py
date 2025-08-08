@@ -18,4 +18,5 @@ __version__ = "0.1.0"
 
 from .truth_agent import TruthAgent
 
-__all__ = ["LucidiaAI", "TruthAgent"]
+__all__ = ["LucidiaAI", "TruthAgent", "VideoAgent"]
+from .video_agent import VideoAgent
