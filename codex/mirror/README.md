@@ -11,3 +11,5 @@ This directory contains modules and documentation for the mirror mechanics used 
 - `README_graph_network.md` — documentation for the graph/network mirror module explaining its purpose, features, and usage.
 - `thermodynamic_entropy_mirror.py` — implementation of the thermodynamic/entropy mirror, providing functions to split a probability distribution into reversible and irreversible parts, apply the breath operator toward equilibrium, introduce perturbations, and measure entropy changes.
 - `README_thermodynamic_entropy.md` — documentation for the thermodynamic/entropy mirror module explaining its purpose, features, and usage.
+- `mirror_engine.py` — orchestrates multiple mirror domains, aggregates invariants across physics, quantum, number, network and thermodynamic mirrors, applies adaptive breath control, and logs aggregated history.
+- `capability_optimizer.py` — performs a random search over mirror engine parameters to maximise the harmonic mean of reach and stability, and reports top configurations.
