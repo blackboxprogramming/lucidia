@@ -20,3 +20,6 @@ from .truth_agent import TruthAgent
 
 __all__ = ["LucidiaAI", "TruthAgent", "VideoAgent"]
 from .video_agent import VideoAgent
+
+from .chatgpt_agent import ChatGPTAgent
+__all__.append("ChatGPTAgent")
