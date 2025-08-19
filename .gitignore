@@ -1,0 +1,30 @@
+# macOS noise
+.DS_Store
+.AppleDouble
+.Spotlight-V100
+.Trashes
+**/Library/**
+**/.Trash/**
+**/Caches/**
+**/.cache/**
+
+# Python
+__pycache__/
+*.py[cod]
+*.log
+.env
+.venv
+venv/
+env/
+# if your venv is outside the project (~/lucidia-env), it's fine; it won't be picked up.
+
+# Node
+node_modules/
+
+# Editors
+.vscode/
+.idea/
+
+# Build artifacts
+dist/
+build/
