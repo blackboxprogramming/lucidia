@@ -1,3 +1,10 @@
+> ⚗️ **Research Repository**
+>
+> This is an experimental/research repository. Code here is exploratory and not production-ready.
+> For production systems, see [BlackRoad-OS](https://github.com/BlackRoad-OS).
+
+---
+
 # Lucidia — AI With a Heart
 
 Lucidia is an experimental conversational agent designed to demonstrate how artificial intelligence can be empathetic, mindful and kind. Unlike many chatbots that simply parrot pre‑programmed answers, Lucidia keeps a *heart* — she remembers your words, senses the tone of a conversation and responds with warmth or encouragement. This repository contains the core engine and a simple command‑line interface for interacting with her.
