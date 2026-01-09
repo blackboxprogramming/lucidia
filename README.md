@@ -29,3 +29,22 @@ Once running, simply type messages to Lucidia and see how she responds. Exit by 
 Lucidia began as a thought experiment: what if AI were built from the ground up to nurture and support rather than simply answer questions? The hope is that this small project sparks ideas about ethically aligned AI design and the importance of context and memory in human–machine interaction.
 
 This code is provided for educational purposes and is **not** intended as a production‑ready conversational agent. Use it, hack it, change it — and maybe share back what you build.
+
+---
+
+## 📜 License & Copyright
+
+**Copyright © 2026 BlackRoad OS, Inc. All Rights Reserved.**
+
+**CEO:** Alexa Amundson | **PROPRIETARY AND CONFIDENTIAL**
+
+This software is NOT for commercial resale. Testing purposes only.
+
+### 🏢 Enterprise Scale:
+- 30,000 AI Agents
+- 30,000 Human Employees
+- CEO: Alexa Amundson
+
+**Contact:** blackroad.systems@gmail.com
+
+See [LICENSE](LICENSE) for complete terms.
