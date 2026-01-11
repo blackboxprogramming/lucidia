@@ -14,9 +14,13 @@ Example:
 
 >>> from lucidia.core import LucidiaAI
 >>> ai = LucidiaAI()
->>> ai.generate_response("I had a great day!")
+>>> ai.generate_response("Hi Lucidia!")
+"Hello!  I'm Lucidia.  It's wonderful to meet you!"
+>>> ai2 = LucidiaAI()
+>>> ai2.generate_response("I had a great day!")
 'That sounds wonderful!  I am happy for you.'
->>> ai.generate_response("I'm feeling sad today.")
+>>> ai3 = LucidiaAI()
+>>> ai3.generate_response("I'm feeling sad today.")
 "I'm sorry to hear that.  I'm here if you want to talk about it."
 
 """
@@ -68,6 +72,14 @@ class LucidiaAI:
         "depressed",
         "anxious",
     )
+    GREETING_WORDS: Tuple[str, ...] = (
+        "hi",
+        "hello",
+        "hey",
+        "greetings",
+        "howdy",
+        "hiya",
+    )
 
     def __init__(self, memory_file: Optional[str] = None) -> None:
         self.memory: List[Dict[str, str]] = []
@@ -108,6 +120,33 @@ class LucidiaAI:
             return -1
         return 0
 
+    def is_greeting(self, text: str) -> bool:
+        """Check if the input appears to be a greeting.
+
+        Returns True if the text contains common greeting words and is
+        relatively short (likely to be an initial greeting rather than
+        a longer message that happens to contain greeting words).
+
+        Parameters
+        ----------
+        text : str
+            The user input to analyze.
+
+        Returns
+        -------
+        bool
+            True if the input appears to be a greeting, False otherwise.
+        """
+        text_lower = text.lower()
+        # Check if any greeting word is present
+        has_greeting = any(word in text_lower for word in self.GREETING_WORDS)
+        # Also check for time-of-day greetings like "good morning"
+        time_greetings = ["morning", "afternoon", "evening", "night"]
+        has_time_greeting = any(f"good {time}" in text_lower for time in time_greetings)
+        # Greetings are typically short messages
+        is_short = len(text.split()) <= 5
+        return (has_greeting or has_time_greeting) and is_short
+
     def generate_response(self, user_input: str) -> str:
         """Generate a context-aware and empathetic response.
 
@@ -127,25 +166,32 @@ class LucidiaAI:
         str
             Lucidia's response.
         """
-        sentiment = self.analyze_sentiment(user_input)
-        # Determine base response based on sentiment
-        if sentiment > 0:
-            response = "That sounds wonderful!  I am happy for you."
-        elif sentiment < 0:
-            response = "I'm sorry to hear that.  I'm here if you want to talk about it."
-        else:
-            response = "I see.  How does that make you feel?"
-
-        # Reference previous user message for continuity
-        if self.memory:
-            last_exchange = self.memory[-1]
-            # If the user repeats similar sentiments, adjust the response
-            if last_exchange["user"] == user_input:
-                response = "You mentioned that before.  Could you elaborate on that?"
+        # Check if this is a greeting
+        if self.is_greeting(user_input):
+            if self.memory:
+                response = "Hello again!  It's nice to hear from you."
             else:
-                # Acknowledge memory by weaving in a callback to the previous topic
-                previous_summary = last_exchange["user"]
-                response += f" Earlier you talked about '{previous_summary}', and I'm still listening."
+                response = "Hello!  I'm Lucidia.  It's wonderful to meet you!"
+        else:
+            sentiment = self.analyze_sentiment(user_input)
+            # Determine base response based on sentiment
+            if sentiment > 0:
+                response = "That sounds wonderful!  I am happy for you."
+            elif sentiment < 0:
+                response = "I'm sorry to hear that.  I'm here if you want to talk about it."
+            else:
+                response = "I see.  How does that make you feel?"
+
+            # Reference previous user message for continuity
+            if self.memory:
+                last_exchange = self.memory[-1]
+                # If the user repeats similar sentiments, adjust the response
+                if last_exchange["user"] == user_input:
+                    response = "You mentioned that before.  Could you elaborate on that?"
+                else:
+                    # Acknowledge memory by weaving in a callback to the previous topic
+                    previous_summary = last_exchange["user"]
+                    response += f" Earlier you talked about '{previous_summary}', and I'm still listening."
 
         # Add the interaction to memory
         self.add_to_memory(user_input, response)
