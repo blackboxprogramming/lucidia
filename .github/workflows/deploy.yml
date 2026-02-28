@@ -6,6 +6,7 @@ on:
 
 jobs:
   deploy:
+    permissions: {}
     uses: BlackRoad-OS-Inc/blackroad-deploy/.github/workflows/cloudflare-deploy.yml@main
     with:
       project: blackroad-io
