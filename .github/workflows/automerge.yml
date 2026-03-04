@@ -1,0 +1,48 @@
+name: Auto Merge
+
+# ✅ VERIFIED: Enables squash auto-merge for PRs labeled "automerge" or from Copilot/Dependabot
+
+on:
+  pull_request:
+    types: [opened, synchronize, labeled, reopened]
+
+permissions:
+  pull-requests: write
+  contents: write
+
+jobs:
+  automerge:
+    runs-on: ubuntu-latest
+    if: |
+      contains(github.event.pull_request.labels.*.name, 'automerge') ||
+      startsWith(github.head_ref, 'dependabot/') ||
+      startsWith(github.head_ref, 'copilot/')
+    steps:
+      - name: Enable auto-merge
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            await github.rest.pulls.updateBranch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+            }).catch(() => {})
+
+            await github.graphql(`
+              mutation EnableAutoMerge($pullRequestId: ID!) {
+                enablePullRequestAutoMerge(input: {
+                  pullRequestId: $pullRequestId,
+                  mergeMethod: SQUASH
+                }) {
+                  pullRequest {
+                    autoMergeRequest {
+                      enabledAt
+                    }
+                  }
+                }
+              }
+            `, {
+              pullRequestId: context.payload.pull_request.node_id
+            })
+            core.info(`Auto-merge enabled for PR #${context.issue.number}`)

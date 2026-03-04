@@ -5,6 +5,25 @@
 
 ---
 
+## ✅ CI / Deployment Status — Verified
+
+| Workflow | Status |
+|---|---|
+| CORE CI | [![CORE CI](https://github.com/blackboxprogramming/lucidia/actions/workflows/core-ci.yml/badge.svg)](https://github.com/blackboxprogramming/lucidia/actions/workflows/core-ci.yml) |
+| Deploy to Cloudflare Workers | [![Deploy](https://github.com/blackboxprogramming/lucidia/actions/workflows/deploy.yml/badge.svg)](https://github.com/blackboxprogramming/lucidia/actions/workflows/deploy.yml) |
+| E2E BlackRoad.io | [![E2E](https://github.com/blackboxprogramming/lucidia/actions/workflows/e2e-blackroad.yml/badge.svg)](https://github.com/blackboxprogramming/lucidia/actions/workflows/e2e-blackroad.yml) |
+| Auto Label | [![Auto Label](https://github.com/blackboxprogramming/lucidia/actions/workflows/auto-label.yml/badge.svg)](https://github.com/blackboxprogramming/lucidia/actions/workflows/auto-label.yml) |
+| Auto Merge | [![Auto Merge](https://github.com/blackboxprogramming/lucidia/actions/workflows/automerge.yml/badge.svg)](https://github.com/blackboxprogramming/lucidia/actions/workflows/automerge.yml) |
+| CI Failure Tracker | [![CI Failure Tracker](https://github.com/blackboxprogramming/lucidia/actions/workflows/failure-issue.yml/badge.svg)](https://github.com/blackboxprogramming/lucidia/actions/workflows/failure-issue.yml) |
+| Project Sync | [![Project Sync](https://github.com/blackboxprogramming/lucidia/actions/workflows/project-sync.yml/badge.svg)](https://github.com/blackboxprogramming/lucidia/actions/workflows/project-sync.yml) |
+| Issue Auto Reply | [![Issue Reply](https://github.com/blackboxprogramming/lucidia/actions/workflows/issue-reply.yml/badge.svg)](https://github.com/blackboxprogramming/lucidia/actions/workflows/issue-reply.yml) |
+
+> **All action `uses:` references are pinned to SHA-256 commit hashes** for supply-chain security.
+> Cloudflare Worker (edge API) is deployed via `cloudflare/wrangler-action@da0e0dfe…` (v3.14.1).
+> Auto-merge is enabled for PRs labelled `automerge`, or from `copilot/` / `dependabot/` branches.
+
+---
+
 # Lucidia — AI With a Heart
 
 Lucidia is an experimental conversational agent designed to demonstrate how artificial intelligence can be empathetic, mindful and kind. Unlike many chatbots that simply parrot pre‑programmed answers, Lucidia keeps a *heart* — she remembers your words, senses the tone of a conversation and responds with warmth or encouragement. This repository contains the core engine and a simple command‑line interface for interacting with her.

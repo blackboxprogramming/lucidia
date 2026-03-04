@@ -1,0 +1,32 @@
+# Cloudflare Worker — Lucidia edge API
+# Deploy with: npx wrangler deploy
+# Docs: https://developers.cloudflare.com/workers/
+
+name            = "lucidia-worker"
+main            = "worker/index.js"
+compatibility_date = "2024-09-01"
+
+# --- Routes -----------------------------------------------------------------
+# Uncomment and set your zone/pattern after adding the custom domain in CF
+# routes = [
+#   { pattern = "api.blackroad.io/*", zone_name = "blackroad.io" }
+# ]
+
+# --- Workers KV (optional — for persistent memory) -------------------------
+# [[kv_namespaces]]
+# binding  = "LUCIDIA_KV"
+# id       = "<your-kv-namespace-id>"
+
+# --- Queues (for longer / async tasks) -------------------------------------
+# [[queues.producers]]
+# queue   = "lucidia-tasks"
+# binding = "TASK_QUEUE"
+#
+# [[queues.consumers]]
+# queue              = "lucidia-tasks"
+# max_batch_size     = 10
+# max_batch_timeout  = 30
+
+# --- Environment secrets (set via `wrangler secret put`) -------------------
+# OPENAI_API_KEY   — for ChatGPT integration
+# LUCIDIA_SECRET   — internal signing key

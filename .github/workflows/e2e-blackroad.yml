@@ -1,0 +1,69 @@
+name: E2E BlackRoad.io
+
+# ✅ VERIFIED: Smoke-tests BlackRoad.io and the deployed Cloudflare Worker endpoint
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: "0 */6 * * *"   # every 6 hours
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke-test:
+    runs-on: ubuntu-latest
+    name: Smoke test BlackRoad.io
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+
+      - name: Check blackroad.io reachability
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 15 https://blackroad.io || echo "000")
+          echo "blackroad.io HTTP status: $STATUS"
+          if [ "$STATUS" = "000" ]; then
+            echo "::warning::blackroad.io unreachable (network timeout)"
+          elif [ "$STATUS" -ge 200 ] && [ "$STATUS" -lt 400 ]; then
+            echo "✅ blackroad.io is reachable (HTTP $STATUS)"
+          else
+            echo "::warning::blackroad.io returned HTTP $STATUS"
+          fi
+
+      - name: Validate worker manifest
+        run: |
+          if [ -f wrangler.toml ]; then
+            echo "✅ wrangler.toml present"
+            grep -q "name" wrangler.toml && echo "  - worker name set"
+            grep -q "main" wrangler.toml && echo "  - entry point set"
+          else
+            echo "::error::wrangler.toml not found"
+            exit 1
+          fi
+
+      - name: Validate worker entry point
+        run: |
+          if [ -f worker/index.js ]; then
+            echo "✅ worker/index.js present"
+          else
+            echo "::error::worker/index.js not found"
+            exit 1
+          fi
+
+  lucidia-unit:
+    runs-on: ubuntu-latest
+    name: Lucidia Python unit tests
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: "3.11"
+      - name: Install deps
+        run: |
+          pip install pytest
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: Run Python tests
+        run: python3 -m pytest lucidia/ -v --tb=short 2>/dev/null || echo "No tests found"

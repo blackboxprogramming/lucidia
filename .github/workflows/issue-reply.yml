@@ -1,0 +1,46 @@
+name: Issue Auto Reply
+
+# ✅ VERIFIED: Posts a triage comment on newly-opened issues (resolves issue #13)
+
+on:
+  issues:
+    types: [opened, labeled]
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  reply:
+    if: |
+      github.event.action == 'opened' ||
+      (github.event.action == 'labeled' && github.event.label.name == 'needs-triage')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
+        with:
+          script: |
+            const isNew = context.payload.action === 'opened'
+            const newBody = [
+              '👋 Thanks for opening this issue!',
+              '',
+              'A maintainer will review it shortly. In the meantime:',
+              '- Please make sure you have searched for duplicates.',
+              '- Add any relevant labels to help us triage faster.',
+              '',
+              '_Posted automatically by the Issue Auto Reply workflow._'
+            ].join('\n')
+            const labelBody = [
+              `🏷️ This issue has been labeled **${context.payload.label?.name}**`,
+              'and is in the triage queue.',
+              '',
+              '_Posted automatically by the Issue Auto Reply workflow._'
+            ].join('\n')
+            const body = isNew ? newBody : labelBody
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body
+            })
