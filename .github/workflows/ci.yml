@@ -41,4 +41,4 @@ jobs:
       - name: Install dependencies
         run: pip install pytest pytest-cov
       - name: Run tests
-        run: pytest tests/ -v --tb=short
+        run: PYTHONPATH=. pytest tests/ -v --tb=short
