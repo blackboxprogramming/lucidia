@@ -1,5 +1,10 @@
 # Lucidia
 
+[![CI](https://github.com/blackboxprogramming/lucidia/actions/workflows/ci.yml/badge.svg)](https://github.com/blackboxprogramming/lucidia/actions/workflows/ci.yml)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
+
+> **© BlackRoad OS, Inc. — Proprietary. All rights reserved.**
+
 **The AI that remembers you.**
 
 Lucidia is a conversational AI platform with persistent memory, multi-service orchestration, and a sovereign-first architecture. Built on FastAPI, it runs on your hardware — no cloud dependency, no data siphon.
