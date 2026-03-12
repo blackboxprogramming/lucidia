@@ -94,3 +94,13 @@ Lucidia runs on the BlackRoad sovereign computing fleet:
 ## License
 
 Copyright 2026 BlackRoad OS, Inc. — Alexa Amundson. All rights reserved.
+
+## Related Projects
+
+| Project | Description |
+|---------|-------------|
+| [BlackRoad Operating System](https://github.com/blackboxprogramming/BlackRoad-Operating-System) | Edge computing OS for Pi fleet |
+| [BlackRoad AI Dashboard](https://github.com/blackboxprogramming/blackroad-ai-dashboard) | Real-time AI fleet monitoring |
+| [Hailo Vision](https://github.com/blackboxprogramming/hailo-vision) | Computer vision with Hailo-8 accelerators |
+| [AI Chain](https://github.com/blackboxprogramming/ai-chain) | Multi-model AI orchestration pipeline |
+| [CECE Revival](https://github.com/blackboxprogramming/cece-revival) | AI personality engine and TTS system |
