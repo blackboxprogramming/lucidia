@@ -10,6 +10,6 @@
     "secret:set": "wrangler secret put GATEWAY_SECRET"
   },
   "devDependencies": {
-    "wrangler": "^3.0.0"
+    "wrangler": "^4.73.0"
   }
 }
