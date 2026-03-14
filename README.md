@@ -1,106 +1,50 @@
-# Lucidia
+> ⚗️ **Research Repository**
+>
+> This is an experimental/research repository. Code here is exploratory and not production-ready.
+> For production systems, see [BlackRoad-OS](https://github.com/BlackRoad-OS).
 
-[![CI](https://github.com/blackboxprogramming/lucidia/actions/workflows/ci.yml/badge.svg)](https://github.com/blackboxprogramming/lucidia/actions/workflows/ci.yml)
-[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
+---
 
-> **© BlackRoad OS, Inc. — Proprietary. All rights reserved.**
+# Lucidia — AI With a Heart
 
-**The AI that remembers you.**
+Lucidia is an experimental conversational agent designed to demonstrate how artificial intelligence can be empathetic, mindful and kind. Unlike many chatbots that simply parrot pre‑programmed answers, Lucidia keeps a *heart* — she remembers your words, senses the tone of a conversation and responds with warmth or encouragement. This repository contains the core engine and a simple command‑line interface for interacting with her.
 
-Lucidia is a conversational AI platform with persistent memory, multi-service orchestration, and a sovereign-first architecture. Built on FastAPI, it runs on your hardware — no cloud dependency, no data siphon.
+## Features
+* **Memory and empathy.** Lucidia stores a running log of your conversation and uses it to frame future replies. If you mention something important earlier, she may circle back to it later.
+* **Simple sentiment analysis.** Without requiring any heavy‑party libraries, Lucidia scans the words you send and classifies them as positive, negative or neutral. Her responses shift accordingly: celebration for joy, comfort for sadness, and curiosity for neutral statements.
+* **Extensible design.** The core `LucidiaAI` class is deliberately small and documented so that you can extend her vocabulary, integrate with real NLP packages, or plug her into a web or mobile front end.
 
-## What It Does
+## Getting Started
 
-- **Persistent Memory** — SQLite-backed key-value memory that persists across sessions. Every conversation builds on the last.
-- **Agent System** — Chat with Lucidia, or call tools directly. Slack, Asana, Linear, Notion, GitHub, Jira — all accessible through a unified agent interface.
-- **Local AI Completion** — Connect to any local LLM (llama.cpp, Ollama) for sovereign AI inference with zero external API calls.
-- **Provider Registry** — Feature-flagged integrations. Enable services by setting environment variables — no code changes needed.
-- **Health Monitoring** — Built-in health checks for fleet deployment across Raspberry Pi clusters.
+Clone this repository and run the chat interface:
+    git clone https://github.com/yourusername/lucidia.git
+    cd lucidia
+    python -m pip install -r requirements.txt  # currently empty, no external deps
+    python -m lucidia.chat
 
-## Architecture
+Once running, simply type messages to Lucidia and see how she responds. Exit by sending EOF (Ctrl+D on Unix, Ctrl+Z then Enter on Windows).
 
-```
-┌─────────────────────────────────────────┐
-│              FastAPI Server             │
-├──────────┬──────────┬───────────────────┤
-│  Memory  │  Agent   │   Completions     │
-│  SQLite  │  Router  │   Local LLM       │
-├──────────┴──────────┴───────────────────┤
-│          Provider Registry              │
-│  Slack · Asana · Linear · Notion · ...  │
-└─────────────────────────────────────────┘
-```
+## Philosophy
 
-## Quickstart
+Lucidia began as a thought experiment: what if AI were built from the ground up to nurture and support rather than simply answer questions? The hope is that this small project sparks ideas about ethically aligned AI design and the importance of context and memory in human–machine interaction.
 
-```bash
-# Clone
-git clone https://github.com/blackboxprogramming/lucidia.git
-cd lucidia
+This code is provided for educational purposes and is **not** intended as a production‑ready conversational agent. Use it, hack it, change it — and maybe share back what you build.
 
-# Install
-pip install fastapi pydantic uvicorn
+---
 
-# Configure integrations (optional)
-export SLACK_BOT_TOKEN=xoxb-...
-export LINEAR_API_KEY=lin_...
-export GITHUB_TOKEN=ghp_...
+## 📜 License & Copyright
 
-# Run
-uvicorn main:app --host 0.0.0.0 --port 8000
-```
+**Copyright © 2026 BlackRoad OS, Inc. All Rights Reserved.**
 
-## API
+**CEO:** Alexa Amundson | **PROPRIETARY AND CONFIDENTIAL**
 
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/` | GET | Status check |
-| `/healthz` | GET | Health probe |
-| `/memory/put` | POST | Store a memory `{key, value}` |
-| `/memory/get?key=` | GET | Retrieve a memory by key |
-| `/agent/capabilities` | GET | List enabled integrations |
-| `/agent/chat` | POST | Chat or call a tool `{message, tool, args}` |
-| `/agent/complete` | POST | Local LLM completion `{prompt, max_tokens}` |
-| `/slack/say` | POST | Send a Slack message |
-| `/asana/me` | GET | Asana user info |
-| `/linear/me` | GET | Linear user info |
+This software is NOT for commercial resale. Testing purposes only.
 
-## Environment Variables
+### 🏢 Enterprise Scale:
+- 30,000 AI Agents
+- 30,000 Human Employees
+- CEO: Alexa Amundson
 
-| Variable | Service |
-|----------|---------|
-| `SLACK_BOT_TOKEN` | Slack |
-| `ASANA_ACCESS_TOKEN` | Asana |
-| `LINEAR_API_KEY` | Linear |
-| `NOTION_TOKEN` | Notion |
-| `GITHUB_TOKEN` | GitHub |
-| `JIRA_URL` + `JIRA_EMAIL` + `JIRA_API_TOKEN` | Jira |
+**Contact:** blackroad.systems@gmail.com
 
-## Ecosystem
-
-- **[Lucidia CLI](https://github.com/blackboxprogramming/lucidia-cli)** — Sovereign coding assistant (explain, review, fix, copilot)
-- **[Context Bridge](https://github.com/blackboxprogramming/context-bridge)** — Persistent memory layer for cross-session AI context
-- **[Remember](https://github.com/blackboxprogramming/remember)** — AI-powered persistent memory for developers
-- **[BlackRoad OS](https://github.com/blackboxprogramming/BlackRoad-Operating-System)** — The operating system for governed AI
-
-## Infrastructure
-
-Lucidia runs on the BlackRoad sovereign computing fleet:
-- 5 Raspberry Pi 5 nodes (WireGuard mesh)
-- 52 TOPS AI acceleration (2x Hailo-8)
-- 108 local models via Ollama
-- Zero cloud dependencies
-
-## License
-
-Copyright 2026 BlackRoad OS, Inc. — Alexa Amundson. All rights reserved.
-
-## Related Projects
-
-| Project | Description |
-|---------|-------------|
-| [BlackRoad Operating System](https://github.com/blackboxprogramming/BlackRoad-Operating-System) | Edge computing OS for Pi fleet |
-| [BlackRoad AI Dashboard](https://github.com/blackboxprogramming/blackroad-ai-dashboard) | Real-time AI fleet monitoring |
-| [Hailo Vision](https://github.com/blackboxprogramming/hailo-vision) | Computer vision with Hailo-8 accelerators |
-| [AI Chain](https://github.com/blackboxprogramming/ai-chain) | Multi-model AI orchestration pipeline |
-| [CECE Revival](https://github.com/blackboxprogramming/cece-revival) | AI personality engine and TTS system |
+See [LICENSE](LICENSE) for complete terms.
